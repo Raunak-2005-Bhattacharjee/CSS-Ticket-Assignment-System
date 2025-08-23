@@ -1,0 +1,258 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /* Global background image with a bluish tint overlay for readability */
+  background-image: linear-gradient(rgba(75, 40, 160, .45), rgba(75, 40, 160, .45)), url('./assets/LandingPage.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* ——— Design system ——— */
+:root {
+  --bg: #0b1020;
+  --card: #121935;
+  --muted: #8a93b2;
+  --text: #e8ecff;
+  --accent: #6b7bff;
+  --accent-2: #2dd4bf;
+  --accent-3: #ff7ab6;
+  --accent-4: #ffd166;
+  --accent-5: #06d6a0;
+  --accent-6: #118ab2;
+  --border: #1e2442;
+}
+
+.container { 
+  width: 100%; 
+  max-width: 960px; 
+  margin: 0 auto; 
+  padding: 0 1rem; 
+}
+
+/* Center the route content below the navbar */
+.page {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-items: center;
+  padding: 1rem 0 2rem;
+}
+
+.stack { display: grid; gap: 1.5rem; }       /* increased gap */
+.stack-lg { display: grid; gap: 2rem; }      /* slightly larger gap */
+.row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+
+/* 🔥 Glow border animation */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 18px var(--accent);
+    border-color: var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 8px var(--accent-2), 0 0 16px var(--accent-3), 0 0 24px var(--accent-2);
+    border-color: var(--accent-2);
+  }
+  100% {
+    box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-2), 0 0 18px var(--accent);
+    border-color: var(--accent);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.card,
+.list-item {
+  --border-size: 2px; /* reduced border size */
+  position: relative;
+  border-radius: 12px;
+  border: var(--border-size) solid transparent;
+  background:
+    linear-gradient(var(--card), var(--card)) padding-box,
+    conic-gradient(var(--accent), var(--accent-2), var(--accent-3), var(--accent)) border-box;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  padding: 1.25rem;
+  animation: glow 3s ease-in-out infinite;
+  overflow: hidden;
+  margin-bottom: 1.25rem; /* extra spacing between cards/list items */
+}
+
+.card::after,
+.list-item::after {
+  content: '';
+  position: absolute;
+  inset: -2px; /* adjusted to match border */
+  border-radius: inherit;
+  background: conic-gradient(var(--accent), var(--accent-2), var(--accent-3), var(--accent));
+  filter: blur(18px);
+  opacity: 0.6;
+  z-index: -1;
+  animation: spin 6s linear infinite;
+}
+
+.heading { margin: 0 0 .5rem; }
+.subtle { color: var(--muted); font-size: .9rem; }
+
+.label { display: block; font-weight: 600; margin: .25rem 0; }
+.input, .textarea, .select {
+  width: 95%;
+  padding: .7rem .85rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #0e1530;
+  color: var(--text);
+}
+.textarea { min-height: 140px; resize: vertical; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: .5rem; padding: .6rem 1rem; border-radius: 10px;
+  border: 1px solid var(--border); background: #131a39; color: var(--text);
+}
+.btn:hover { border-color: var(--accent); }
+.btn-primary { background: linear-gradient(90deg, var(--accent), var(--accent-2)); border: none; color: #0a0a0a; }
+.btn-ghost { background: transparent; }
+.btn-danger { background: linear-gradient(90deg, #ef4444, #f97316); border: none; color: #0a0a0a; }
+.btn-danger:hover { filter: brightness(1.05); }
+.btn-success { background: linear-gradient(90deg, #22c55e, #14b8a6); border: none; color: #0a0a0a; }
+.badge { padding: .25rem .5rem; border-radius: 999px; border: 1px solid var(--border); background: #101632; }
+.badge-success { background: rgba(34, 197, 94, .15); color: #22c55e; border-color: rgba(34, 197, 94, .35); }
+
+.nav {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(10, 14, 30, .65);
+  border-bottom: 1px solid var(--border, rgba(30, 36, 66, .8));
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+.nav-inner {
+  max-width: 75%; margin: 0 auto; padding: 1rem 1rem;
+  display: flex; gap: 1rem; align-items: center; justify-content: space-between;
+}
+.nav a { color: var(--text); opacity: 1; }
+.nav a:hover { opacity: 1; }
+.nav .brand { font-size: 1.25rem; }
+.nav a, .nav .subtle { font-size: 1.05rem; }
+.nav .logo { display: block; height: 32px; width: auto; }
+
+.list {
+  list-style: none; padding: 0; margin: 0;
+  display: grid; gap: 1.25rem;   /* increased gap between list items */
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: grid;
+  place-items: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Additional utility classes */
+.space-between { justify-content: space-between; }
+.gap { gap: 0.5rem; }
+.btn-secondary { 
+  background: linear-gradient(90deg, var(--accent-6), var(--accent-5)); 
+  border: none; 
+  color: #0a0a0a; 
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .card {
+    padding: 1rem;
+  }
+  
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .space-between {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
