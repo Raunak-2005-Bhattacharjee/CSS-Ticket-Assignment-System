@@ -75,7 +75,7 @@ export default function MyTicketsPage() {
   return (
     <RequireAuth>
       <div className="container stack">
-        <div className="row" style={{ justifyContent: 'space-between' }}>
+        <div className="row space-between">
           <h1 className="heading">My tickets</h1>
           <button className="btn" onClick={load}>Refresh</button>
         </div>
@@ -94,9 +94,14 @@ export default function MyTicketsPage() {
         <ul className="list">
           {tickets.map(t => (
             <li className="list-item" key={t._id}>
-              <div className="row" style={{ justifyContent: 'space-between' }}>
-                <div className="stack">
+              <div className="stack">
+                <div className="row space-between">
                   <strong>{t.title}</strong>
+                  <div className={t.status === 'COMPLETED' ? 'badge badge-success' : 'badge'}>
+                    {t.status === 'COMPLETED' ? 'Completed' : (t.assignedTo ? 'Assigned' : 'Unassigned')}
+                  </div>
+                </div>
+                <div className="stack">
                   <span className="subtle">Status: {t.status}</span>
                   {Array.isArray(t.relatedSkills) && t.relatedSkills.length ? (
                     <span className="subtle">Skills: {t.relatedSkills.join(', ')}</span>
@@ -105,10 +110,7 @@ export default function MyTicketsPage() {
                     <span className="subtle">Notes: {t.helpfulNotes}</span>
                   ) : null}
                 </div>
-                <div className="row">
-                  <div className={t.status === 'COMPLETED' ? 'badge badge-success' : 'subtle'} style={{ marginRight: '.5rem' }}>
-                    {t.status === 'COMPLETED' ? 'Completed' : (t.assignedTo ? 'Assigned' : 'Unassigned')}
-                  </div>
+                <div className="row" style={{ justifyContent: 'flex-end', gap: '0.5rem' }}>
                   {role === 'junior' && t.assignedTo && t.status !== 'COMPLETED' && (
                     <button className="btn btn-success" onClick={() => complete(t._id)}>Mark Complete</button>
                   )}

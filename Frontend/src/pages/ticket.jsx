@@ -32,21 +32,33 @@ export default function CreateTicketPage() {
     <RequireAuth>
       <div className="container">
         <div className="card stack">
-          <div>
+          <div style={{ textAlign: 'center' }}>
             <h1 className="heading">Create ticket</h1>
             <p className="subtle">Describe the work; skills will be extracted automatically.</p>
           </div>
           <form onSubmit={create} className="stack">
             <div>
               <label className="label">Title</label>
-              <input className="input" value={title} onChange={e => setTitle(e.target.value)} />
+              <input 
+                className="input" 
+                value={title} 
+                onChange={e => setTitle(e.target.value)}
+                placeholder="Enter ticket title"
+                required
+              />
             </div>
             <div>
               <label className="label">Description</label>
-              <textarea className="textarea" value={description} onChange={e => setDescription(e.target.value)} />
+              <textarea 
+                className="textarea" 
+                value={description} 
+                onChange={e => setDescription(e.target.value)}
+                placeholder="Describe the work to be done..."
+                required
+              />
             </div>
             <div className="row">
-              <button className="btn btn-primary" type="submit">Create</button>
+              <button className="btn btn-primary" type="submit">Create Ticket</button>
             </div>
           </form>
         </div>

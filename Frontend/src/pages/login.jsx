@@ -25,18 +25,32 @@ export default function LoginPage() {
   return (
     <div className="container">
       <div className="card stack">
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <h1 className="heading">Login</h1>
           <p className="subtle">Access your account to manage tickets.</p>
         </div>
         <form onSubmit={submit} className="stack">
           <div>
             <label className="label">Email</label>
-            <input className="input" value={email} onChange={e => setEmail(e.target.value)} />
+            <input 
+              className="input" 
+              type="email"
+              value={email} 
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
           </div>
           <div>
             <label className="label">Password</label>
-            <input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <input 
+              className="input" 
+              type="password" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
           </div>
           <div className="row">
             <button className="btn btn-primary" type="submit">Login</button>

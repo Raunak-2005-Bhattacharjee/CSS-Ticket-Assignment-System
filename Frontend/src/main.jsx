@@ -13,9 +13,19 @@ import AdminPage from './pages/admin.jsx'
 
 function Home() {
   return (
-    <div style={{ maxWidth: 800, margin: '2rem auto' }}>
-      <h1>CSS Ticket System</h1>
-      <p>Use the navbar to login, signup, create tickets, or view your tickets.</p>
+    <div className="container">
+      <div className="card stack-lg">
+        <div style={{ textAlign: 'center' }}>
+          <h1 className="heading">CSS Ticket System</h1>
+          <p className="subtle" style={{ fontSize: '1.1rem', marginBottom: '2rem' }}>
+            Use the navbar to login, signup, create tickets, or view your tickets.
+          </p>
+        </div>
+        <div className="row" style={{ justifyContent: 'center', gap: '1rem' }}>
+          <a href="/login" className="btn btn-primary">Get Started</a>
+          <a href="/signup" className="btn">Create Account</a>
+        </div>
+      </div>
     </div>
   )
 }
@@ -26,16 +36,14 @@ createRoot(document.getElementById('root')).render(
       <BrowserRouter>
         <Navbar />
         <main className="page">
-          <div className="container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<SignupPage />} />
-              <Route path="/ticket" element={<RequireRole roles={["senior"]}><CreateTicketPage /></RequireRole>} />
-              <Route path="/tickets" element={<MyTicketsPage />} />
-              <Route path="/admin" element={<RequireRole roles={["senior"]}><AdminPage /></RequireRole>} />
-            </Routes>
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/ticket" element={<RequireRole roles={["senior"]}><CreateTicketPage /></RequireRole>} />
+            <Route path="/tickets" element={<MyTicketsPage />} />
+            <Route path="/admin" element={<RequireRole roles={["senior"]}><AdminPage /></RequireRole>} />
+          </Routes>
         </main>
       </BrowserRouter>
     </AuthProvider>

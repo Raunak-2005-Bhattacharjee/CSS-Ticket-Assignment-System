@@ -27,30 +27,49 @@ export default function SignupPage() {
   return (
     <div className="container">
       <div className="card stack">
-        <div>
+        <div style={{ textAlign: 'center' }}>
           <h1 className="heading">Create account</h1>
           <p className="subtle">Choose a role; seniors can create and assign tickets.</p>
         </div>
         <form onSubmit={submit} className="stack">
           <div>
             <label className="label">Email</label>
-            <input className="input" value={email} onChange={e => setEmail(e.target.value)} />
+            <input 
+              className="input" 
+              type="email"
+              value={email} 
+              onChange={e => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              required
+            />
           </div>
           <div>
             <label className="label">Password</label>
-            <input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} />
+            <input 
+              className="input" 
+              type="password" 
+              value={password} 
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              required
+            />
           </div>
           <div>
             <label className="label">Role</label>
-            <select className="select" value={role} onChange={e => setRole(e.target.value)}>
-              <option value="senior">senior</option>
-              <option value="junior">junior</option>
-              <option value="user">user</option>
+            <select className="select" value={role} onChange={e => setRole(e.target.value)} required>
+              <option value="senior">Senior</option>
+              <option value="junior">Junior</option>
+              <option value="user">User</option>
             </select>
           </div>
           <div>
             <label className="label">Skills (comma-separated)</label>
-            <input className="input" value={skills} onChange={e => setSkills(e.target.value)} />
+            <input 
+              className="input" 
+              value={skills} 
+              onChange={e => setSkills(e.target.value)}
+              placeholder="e.g., react, node, mongodb"
+            />
           </div>
           <div className="row">
             <button className="btn btn-primary" type="submit">Create account</button>

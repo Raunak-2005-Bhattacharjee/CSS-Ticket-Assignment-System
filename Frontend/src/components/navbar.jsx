@@ -22,7 +22,9 @@ export default function Navbar() {
     <div className="nav">
       <div className="nav-inner">
         <div className="row">
-          <Link to="/" className="brand"><img src={logoUrl} alt="CSS logo" className="logo" /></Link>
+          <Link to="/" className="brand">
+            <img src={logoUrl} alt="CSS logo" className="logo" />
+          </Link>
           <span className="subtle">{token ? 'Authenticated' : 'Guest'}</span>
         </div>
         <div className="row">
@@ -31,7 +33,11 @@ export default function Navbar() {
           {role === 'senior' && <Link to="/admin">Admin</Link>}
           {!token && <Link to="/login">Login</Link>}
           {!token && <Link to="/signup">Signup</Link>}
-          {token && <button className="btn btn-danger" onClick={onLogout}>Logout</button>}
+          {token && (
+            <button className="btn btn-danger" onClick={onLogout}>
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </div>

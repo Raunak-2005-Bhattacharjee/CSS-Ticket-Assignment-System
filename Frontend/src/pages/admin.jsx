@@ -173,13 +173,11 @@ export default function AdminPage() {
     return Math.round((matchingSkills.length / ticketSkills.length) * 100)
   }
 
-  
-
   return (
     <RequireAuth>
       <div className="container">
         <div className="card stack">
-          <div>
+          <div style={{ textAlign: 'center' }}>
             <h1 className="heading">Admin Dashboard</h1>
             <p className="subtle">Manage juniors and ticket assignments.</p>
           </div>
@@ -193,8 +191,10 @@ export default function AdminPage() {
                 <input 
                   className="input" 
                   value={email} 
-                  onChange={e => setEmail(e.target.value)} 
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="Enter junior email"
                   disabled={loading}
+                  required
                 />
               </div>
               <div>
@@ -202,8 +202,10 @@ export default function AdminPage() {
                 <input 
                   className="input" 
                   value={skills} 
-                  onChange={e => setSkills(e.target.value)} 
+                  onChange={e => setSkills(e.target.value)}
+                  placeholder="e.g., react, node, mongodb"
                   disabled={loading}
+                  required
                 />
               </div>
               <div className="row">
@@ -217,8 +219,6 @@ export default function AdminPage() {
               </div>
             </form>
           </div>
-
-
 
           {/* Ticket Assignment Section */}
           <div className="card stack">
@@ -235,13 +235,13 @@ export default function AdminPage() {
                 className={`btn ${activeTab === 'unassigned' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setActiveTab('unassigned')}
               >
-                Unassigned Tickets ({unassignedTickets.length})
+                Unassigned ({unassignedTickets.length})
               </button>
               <button
                 className={`btn ${activeTab === 'all' ? 'btn-primary' : 'btn-secondary'}`}
                 onClick={() => setActiveTab('all')}
               >
-                All Tickets ({allTickets.length})
+                All ({allTickets.length})
               </button>
             </div>
 
@@ -255,7 +255,7 @@ export default function AdminPage() {
                   <div className="stack">
                     {unassignedTickets.map(ticket => (
                       <div key={ticket._id} className="card">
-                        <div className="row space-between">
+                        <div className="stack">
                           <div>
                             <h4>{ticket.title}</h4>
                             <p className="subtle">{ticket.description}</p>
@@ -312,7 +312,7 @@ export default function AdminPage() {
                   <div className="stack">
                     {allTickets.map(ticket => (
                       <div key={ticket._id} className="card">
-                        <div className="row space-between">
+                        <div className="stack">
                           <div>
                             <h4>{ticket.title}</h4>
                             <p className="subtle">{ticket.description}</p>
@@ -382,7 +382,7 @@ export default function AdminPage() {
                 <div>
                   <label className="label">Select Junior</label>
                   <select 
-                    className="input" 
+                    className="select" 
                     value={selectedJunior} 
                     onChange={e => setSelectedJunior(e.target.value)}
                     disabled={loading}
