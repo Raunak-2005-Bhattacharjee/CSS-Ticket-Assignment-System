@@ -89,9 +89,10 @@ button:focus-visible {
 
 .container { 
   width: 100%; 
-  max-width: 960px; 
+  max-width: 100%; 
   margin: 0 auto; 
   padding: 0 1rem; 
+  box-sizing: border-box;
 }
 
 /* Center the route content below the navbar */
@@ -100,11 +101,32 @@ button:focus-visible {
   display: grid;
   place-items: center;
   padding: 1rem 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.stack { display: grid; gap: 1.5rem; }       /* increased gap */
-.stack-lg { display: grid; gap: 2rem; }      /* slightly larger gap */
-.row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.stack { 
+  display: grid; 
+  gap: 1.5rem; 
+  width: 100%;
+  box-sizing: border-box;
+}       /* increased gap */
+
+.stack-lg { 
+  display: grid; 
+  gap: 2rem; 
+  width: 100%;
+  box-sizing: border-box;
+}      /* slightly larger gap */
+
+.row { 
+  display: flex; 
+  gap: 1rem; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  width: 100%;
+  box-sizing: border-box;
+}
 
 /* 🔥 Glow border animation */
 @keyframes glow {
@@ -141,6 +163,8 @@ button:focus-visible {
   animation: glow 3s ease-in-out infinite;
   overflow: hidden;
   margin-bottom: 1.25rem; /* extra spacing between cards/list items */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .card::after,
@@ -195,6 +219,7 @@ button:focus-visible {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
 }
+
 .nav-inner {
   max-width: 1200px; 
   margin: 0 auto; 
@@ -204,12 +229,85 @@ button:focus-visible {
   align-items: center; 
   justify-content: space-between;
   flex-wrap: wrap;
+  position: relative;
 }
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .nav a { color: var(--text); opacity: 1; }
 .nav a:hover { opacity: 1; }
 .nav .brand { font-size: 1.25rem; }
 .nav a, .nav .subtle { font-size: 1.05rem; }
 .nav .logo { display: block; height: 32px; width: auto; }
+
+/* Navigation links container */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Hamburger menu button */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.hamburger {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.hamburger::before,
+.hamburger::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  transition: all 0.3s ease;
+}
+
+.hamburger::before {
+  top: -8px;
+}
+
+.hamburger::after {
+  bottom: -8px;
+}
+
+/* Hamburger animation when open */
+.hamburger.open {
+  background: transparent;
+}
+
+.hamburger.open::before {
+  top: 0;
+  transform: rotate(45deg);
+}
+
+.hamburger.open::after {
+  bottom: 0;
+  transform: rotate(-45deg);
+}
 
 .list {
   list-style: none; padding: 0; margin: 0;
@@ -272,9 +370,29 @@ button:focus-visible {
   .nav a:active {
     background: rgba(255, 255, 255, 0.3);
   }
+  
+  /* Better touch targets for navigation */
+  .nav-toggle {
+    min-height: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .hamburger {
+    width: 20px;
+    height: 2px;
+  }
+  
+  .hamburger::before,
+  .hamburger::after {
+    width: 20px;
+    height: 2px;
+  }
 }
 
-/* Improved mobile navigation */
+/* Mobile responsive navigation */
 @media (max-width: 768px) {
   .nav {
     position: sticky;
@@ -284,19 +402,65 @@ button:focus-visible {
   
   .nav-inner {
     position: relative;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
   }
   
-  /* Better mobile navigation layout */
-  .nav .row:first-child {
-    order: 1;
-    justify-content: center;
+  /* Show hamburger menu on mobile */
+  .nav-toggle {
+    display: block;
+    order: 3;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
   }
   
-  .nav .row:last-child {
-    order: 2;
-    justify-content: center;
-    flex-wrap: wrap;
+  /* Hide navigation links by default on mobile */
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 14, 30, 0.98);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
     gap: 0.5rem;
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Show navigation links when menu is open */
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Style navigation links on mobile */
+  .nav-links a,
+  .nav-links .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background-color 0.2s;
+    min-height: 48px;
+    text-align: center;
+  }
+  
+  .nav-links a:hover,
+  .nav-links .btn:hover {
+    background: rgba(255, 255, 255, 0.2);
   }
   
   /* Improve mobile logo */
@@ -308,6 +472,23 @@ button:focus-visible {
   .nav .btn {
     min-width: 80px;
     justify-content: center;
+  }
+  
+  /* Ensure brand stays on the left */
+  .nav-brand {
+    order: 1;
+    flex: 1;
+  }
+  
+  /* Hide subtle text on very small screens */
+  @media (max-width: 480px) {
+    .nav .subtle {
+      display: none;
+    }
+    
+    .nav-toggle {
+      right: 0.5rem;
+    }
   }
 }
 
@@ -346,13 +527,16 @@ button:focus-visible {
 /* Mobile-first improvements for very small screens */
 @media (max-width: 360px) {
   .container {
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
+    max-width: 100%;
   }
   
   .card,
   .list-item {
     padding: 0.75rem;
     margin-bottom: 0.75rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .btn {
@@ -378,6 +562,7 @@ button:focus-visible {
   .row {
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
   }
   
   .space-between {
@@ -387,10 +572,17 @@ button:focus-visible {
   /* Reduce gaps for very small screens */
   .stack {
     gap: 0.75rem;
+    width: 100%;
   }
   
   .stack-lg {
     gap: 1rem;
+    width: 100%;
+  }
+  
+  /* Position hamburger menu on very small screens */
+  .nav-toggle {
+    right: 0.25rem;
   }
 }
 
@@ -398,7 +590,8 @@ button:focus-visible {
 /* Small mobile devices */
 @media (max-width: 480px) {
   .container {
-    padding: 0 0.75rem;
+    padding: 0 0.5rem;
+    max-width: 100%;
   }
   
   .page {
@@ -409,6 +602,8 @@ button:focus-visible {
   .list-item {
     padding: 1rem;
     margin-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .nav-inner {
@@ -447,6 +642,7 @@ button:focus-visible {
     flex-direction: column;
     align-items: stretch;
     gap: 0.75rem;
+    width: 100%;
   }
   
   .space-between {
@@ -474,20 +670,27 @@ button:focus-visible {
   }
   
   /* Improve form spacing on mobile */
+  form.stack {
+    width: 100%;
+  }
+  
   form.stack > div {
     margin-bottom: 0.5rem;
+    width: 100%;
   }
   
   /* Better button spacing on mobile */
   .row .btn {
     margin-bottom: 0.5rem;
+    width: 100%;
   }
 }
 
 /* Medium mobile devices */
 @media (max-width: 768px) {
   .container {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
+    max-width: 100%;
   }
   
   .nav-inner {
@@ -520,12 +723,15 @@ button:focus-visible {
   .card,
   .list-item {
     padding: 1.25rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   .row {
     flex-direction: column;
     align-items: stretch;
     gap: 1rem;
+    width: 100%;
   }
   
   .space-between {
@@ -536,6 +742,7 @@ button:focus-visible {
   /* Improve form layout on mobile */
   form.stack {
     gap: 1.25rem;
+    width: 100%;
   }
   
   /* Better button layout on mobile */
@@ -547,6 +754,7 @@ button:focus-visible {
   /* Improve list item layout on mobile */
   .list-item .row {
     gap: 1rem;
+    width: 100%;
   }
   
   .list-item .row .row {
@@ -587,6 +795,7 @@ button:focus-visible {
   /* Better spacing for mobile forms */
   .card .stack {
     gap: 1rem;
+    width: 100%;
   }
   
   /* Improve button groups on mobile */
@@ -599,6 +808,7 @@ button:focus-visible {
 @media (min-width: 769px) and (max-width: 1024px) {
   .container {
     padding: 0 1.5rem;
+    max-width: 100%;
   }
   
   .nav-inner {
@@ -606,14 +816,41 @@ button:focus-visible {
     padding: 1rem 1.5rem;
   }
   
+  .nav-links {
+    gap: 0.75rem;
+  }
+  
+  .nav a, .nav .subtle {
+    font-size: 1rem;
+  }
+  
   .card,
   .list-item {
     padding: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
   }
   
   /* Improve button layout on tablets */
   .row .btn {
     min-width: 120px;
+  }
+  
+  /* Ensure navigation stays horizontal on tablets */
+  .nav-toggle {
+    display: none;
+  }
+  
+  .nav-links {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    background: none;
+    border: none;
+    box-shadow: none;
+    flex-direction: row;
+    padding: 0;
   }
 }
 
@@ -621,6 +858,7 @@ button:focus-visible {
 @media (min-width: 1025px) {
   .container {
     padding: 0 2rem;
+    max-width: 1200px;
   }
   
   .nav-inner {
@@ -642,6 +880,79 @@ button:focus-visible {
   
   .btn:hover {
     transform: translateY(-1px);
+  }
+  
+  /* Ensure navigation stays horizontal on desktop */
+  .nav-toggle {
+    display: none;
+  }
+  
+  .nav-links {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    background: none;
+    border: none;
+    box-shadow: none;
+    flex-direction: row;
+    padding: 0;
+  }
+  
+  .card,
+  .list-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 2rem;
+  }
+  
+  .nav-inner {
+    max-width: 1400px;
+    padding: 1rem 2rem;
+  }
+  
+  .nav-links {
+    gap: 1.5rem;
+  }
+  
+  .nav a, .nav .subtle {
+    font-size: 1.1rem;
+  }
+  
+  .card,
+  .list-item {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* Extra large screens */
+@media (min-width: 1600px) {
+  .container {
+    max-width: 1600px;
+    padding: 0 3rem;
+  }
+  
+  .nav-inner {
+    max-width: 1600px;
+    padding: 1.5rem 3rem;
+  }
+  
+  .nav-links {
+    gap: 2rem;
+  }
+  
+  .card,
+  .list-item {
+    width: 100%;
+    box-sizing: border-box;
   }
 }
 
@@ -676,7 +987,8 @@ button:focus-visible {
   .btn:focus,
   .input:focus,
   .textarea:focus,
-  .select:focus {
+  .select:focus,
+  .nav-toggle:focus {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
@@ -701,6 +1013,24 @@ button:focus-visible {
     margin: 0.5rem 0;
     line-height: 1.4;
   }
+  
+  /* Smooth transitions for mobile navigation */
+  .nav-links {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  /* Better mobile navigation spacing */
+  .nav-links a:not(:last-child),
+  .nav-links .btn:not(:last-child) {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Improve mobile navigation button styling */
+  .nav-links .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 1rem;
+  }
 }
 
 /* Landscape mobile orientation improvements */
@@ -715,7 +1045,7 @@ button:focus-visible {
     gap: 1rem;
   }
   
-  .nav .row {
+  .nav-links {
     flex-direction: row;
     gap: 0.5rem;
   }
@@ -736,12 +1066,29 @@ button:focus-visible {
   }
   
   /* Better landscape navigation */
-  .nav .row:first-child {
+  .nav-brand {
     order: 0;
   }
   
-  .nav .row:last-child {
+  .nav-links {
     order: 1;
+  }
+  
+  .nav-toggle {
+    order: 2;
+  }
+  
+  /* Ensure navigation stays horizontal in landscape */
+  .nav-links {
+    position: static;
+    transform: none;
+    opacity: 1;
+    visibility: visible;
+    background: none;
+    border: none;
+    box-shadow: none;
+    flex-direction: row;
+    padding: 0;
   }
 }
 
