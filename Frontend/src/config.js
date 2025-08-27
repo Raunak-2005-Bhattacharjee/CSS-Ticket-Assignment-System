@@ -4,7 +4,7 @@ const isProduction = import.meta.env.PROD;
 
 // API base URL - change this to your backend URL when deployed
 export const API_BASE_URL = isProduction 
-  ? 'https://your-backend-service.onrender.com'  // Replace with your actual backend URL
+  ? 'https://css-backend.onrender.com'  // Replace with your actual backend URL
   : 'http://localhost:3000';
 
 // Helper function to build API endpoints

@@ -16,15 +16,3 @@ services:
         sync: false
       - key: PORT
         value: 3000
-
-  # Frontend Service
-  - type: web
-    name: css-frontend
-    env: static
-    plan: free
-    rootDir: Frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    envVars:
-      - key: NODE_ENV
-        value: production
