@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
+import { buildApiUrl } from './config.js'
 
 const api = {
-  signup: (body) => fetch('/api/auth/signup', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json()),
-  login: (body) => fetch('/api/auth/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json()),
-  seedJunior: (body, token) => fetch('/api/auth/seed-junior', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(body) }).then(r => r.json()),
-  createTicket: (body, token) => fetch('/api/tickets', { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(body) }).then(r => r.json()),
-  myTickets: (token) => fetch('/api/tickets/me', { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
+  signup: (body) => fetch(buildApiUrl('/api/auth/signup'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json()),
+  login: (body) => fetch(buildApiUrl('/api/auth/login'), { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }).then(r => r.json()),
+  seedJunior: (body, token) => fetch(buildApiUrl('/api/auth/seed-junior'), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(body) }).then(r => r.json()),
+  createTicket: (body, token) => fetch(buildApiUrl('/api/tickets'), { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify(body) }).then(r => r.json()),
+  myTickets: (token) => fetch(buildApiUrl('/api/tickets/me'), { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
 }
 
 export default function App() {

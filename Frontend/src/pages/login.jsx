@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/auth.jsx'
+import { buildApiUrl } from '../config.js'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('senior@example.com')
-  const [password, setPassword] = useState('password')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const navigate = useNavigate()
   const { setToken } = useAuth()
 
   const submit = async (e) => {
     e.preventDefault()
-    const res = await fetch('/api/auth/login', {
+    const res = await fetch(buildApiUrl('/api/auth/login'), {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     }).then(r => r.json())
